@@ -1,0 +1,5 @@
+{
+    "name": "php-mvc/project",
+    "description": "Simple PHP MVC Structure",
+    "require": {}
+}
