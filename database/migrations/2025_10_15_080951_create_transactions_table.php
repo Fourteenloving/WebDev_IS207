@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->id();
+        Schema::create('transactions', function (Blueprint $table) {
+            $table->increments('tx_id');
             $table->unsignedInteger('user_id');
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-
-            $table->foreign('user_id')->references('user_id')->on('Users')->onDelete('cascade');
+            $table->enum('type', ['P2P','TRANSFER','SPOT','FUTURES']);
+            $table->decimal('amount', 18, 2);
+            $table->timestamp('created_at')->useCurrent();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('transactions');
     }
 };
