@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bank_accounts', function (Blueprint $table) {
-            $table->increments('account_id');
-            $table->unsignedInteger('user_id');
+            $table->string('account_number', 50)->primary();
             $table->string('bank_name', 100);
-            $table->string('account_number', 50);
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('user_id');
+            $table->decimal('account_balance', 18, 2)->default(0.00);
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
         });
     }
 

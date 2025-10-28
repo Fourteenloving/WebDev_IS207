@@ -12,10 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('wallets', function (Blueprint $table) {
-            $table->increments('wallet_id');
-            $table->unsignedInteger('user_id');
-            $table->decimal('balance', 18, 2)->default(0);
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->id('wallet_id');
+            $table->unsignedBigInteger('user_id');
+            $table->enum('type', ['fund', 'spot', 'future']);
+            $table->decimal('balance', 18, 2)->default(0.00);
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
         });
     }
 
