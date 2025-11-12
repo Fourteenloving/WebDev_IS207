@@ -2,3 +2,6 @@
 .env.backup
 .env.production
 auth.json
+/vendor
+done.md
+/node_modules
